@@ -12,14 +12,13 @@ import java.util.Random;
 
 public class ProduceMessages {
 
-    private static final String HOSTS = "52.172.24.230:9092,13.71.124.119:9092,52.140.16.51:9092";
-
-    private static final String EVENT_TOPIC = "hrs-event";
-    private static final String ALARM_TOPIC = "hrs-alarm";
-    private static final String TOPIC_KEY = "dsaServerName";
+    private static final String HOSTS = System.getenv("KAFKA_BROKER_LIST");
+    //    "52.172.24.230:9092,13.71.124.119:9092,52.140.16.51:9092";
+    private static final String EVENT_TOPIC = System.getenv("EVENT_TOPIC");
+    private static final String ALARM_TOPIC = System.getenv("ALARM_TOPIC");
 
     // FROM Date
-    private static final int FROM_YEAR = 2018;
+    private static final int FROM_YEAR = 2017;
     private static final int FROM_MONTH = 11;
     private static final int FROM_DATE = 01;
     private static final int FROM_HOURS = 01;
@@ -28,7 +27,7 @@ public class ProduceMessages {
 
     // TO Date
     private static final int TO_YEAR = 2020;
-    private static final int TO_MONTH = 11;
+    private static final int TO_MONTH = 05;
     private static final int TO_DATE = 01;
     private static final int TO_HOURS = 01;
     private static final int TO_MINUTES = 01;
@@ -90,7 +89,7 @@ public class ProduceMessages {
         return props;
     }
 
-    public static void startProducing(String[] args) {
+    public static void startProducing() {
 
         Properties props = createProperties(HOSTS);
         Producer<String, String> producer = new KafkaProducer<String, String>(props);
@@ -126,6 +125,6 @@ public class ProduceMessages {
     }
 
     public static void main(String[] args) {
-        startProducing(args);
+        startProducing();
     }
 }
