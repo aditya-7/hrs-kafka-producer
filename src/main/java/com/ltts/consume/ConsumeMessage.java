@@ -9,16 +9,14 @@ import org.apache.kafka.clients.consumer.KafkaConsumer;
 
 public class ConsumeMessage {
 
-	private static final String HOSTS = "52.172.24.230:9092,13.71.124.119:9092,52.140.16.51:9092";
 
-	private static final String EVENT_TOPIC = "hrs-event";
-	private static final String ALARM_TOPIC = "hrs-alarm";
-	private static final String TOPIC_KEY = "dsaServerName";
-	
+	private static final String HOSTS = System.getenv("KAFKA_BROKER_LIST");
+	//    "52.172.24.230:9092,13.71.124.119:9092,52.140.16.51:9092";
+	private static final String EVENT_TOPIC = System.getenv("EVENT_TOPIC");
+	private static final String ALARM_TOPIC = System.getenv("ALARM_TOPIC");
 	private static final String TEST_TOPIC = "midnight";
 
-	
-	
+
 	public static void consume(String topicName) {
 		Properties props = new Properties();
 		props.put("bootstrap.servers", HOSTS);
