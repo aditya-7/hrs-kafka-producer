@@ -12,10 +12,12 @@ import java.util.Random;
 
 public class ProduceMessages {
 
-    private static final String HOSTS = System.getenv("KAFKA_BROKER_LIST");
-    //    "52.172.24.230:9092,13.71.124.119:9092,52.140.16.51:9092";
-    private static final String EVENT_TOPIC = System.getenv("EVENT_TOPIC");
-    private static final String ALARM_TOPIC = System.getenv("ALARM_TOPIC");
+    //    private static final String HOSTS = System.getenv("KAFKA_BROKER_LIST");
+    private static final String HOSTS = "52.172.24.230:9092,13.71.124.119:9092,52.140.16.51:9092";
+    //    private static final String EVENT_TOPIC = System.getenv("EVENT_TOPIC");
+    private static final String EVENT_TOPIC = "hrs-event-3";
+    //    private static final String ALARM_TOPIC = System.getenv("ALARM_TOPIC");
+    private static final String ALARM_TOPIC = "hrs-alarm";
 
     // FROM Date
     private static final int FROM_YEAR = 2017;
@@ -71,7 +73,7 @@ public class ProduceMessages {
     }
 
     public static String getTimestamp() {
-        String pattern = "yyyy-MM-dd HH:mm:ss.SSSZ";
+        String pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSS'+05:30'";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         return simpleDateFormat.format(new Date());
     }
