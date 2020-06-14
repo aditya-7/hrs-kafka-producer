@@ -5,6 +5,8 @@ import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
 import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
@@ -15,9 +17,9 @@ public class ProduceMessages {
     //    private static final String HOSTS = System.getenv("KAFKA_BROKER_LIST");
     private static final String HOSTS = "52.172.24.230:9092,13.71.124.119:9092,52.140.16.51:9092";
     //    private static final String EVENT_TOPIC = System.getenv("EVENT_TOPIC");
-    private static final String EVENT_TOPIC = "hrs-event-3";
+    private static final String EVENT_TOPIC = "hrs-ebi-event";
     //    private static final String ALARM_TOPIC = System.getenv("ALARM_TOPIC");
-    private static final String ALARM_TOPIC = "hrs-alarm";
+    private static final String ALARM_TOPIC = "hrs-ebi-alarm";
 
     // FROM Date
     private static final int FROM_YEAR = 2017;
@@ -66,8 +68,8 @@ public class ProduceMessages {
             return random.nextInt(range) + MIN_NO_OF_EVENTS_OR_ALARMS;
         }
         // status=false for generating big number used for EventID/AlarmID
-        MAX_NO_OF_EVENTS_OR_ALARMS = 9999;
-        MIN_NO_OF_EVENTS_OR_ALARMS = 6000;
+        MAX_NO_OF_EVENTS_OR_ALARMS = 6666;
+        MIN_NO_OF_EVENTS_OR_ALARMS = 6060;
         int range = MAX_NO_OF_EVENTS_OR_ALARMS - MIN_NO_OF_EVENTS_OR_ALARMS + 1;
         return random.nextInt(range) + MIN_NO_OF_EVENTS_OR_ALARMS;
     }
@@ -75,7 +77,8 @@ public class ProduceMessages {
     public static String getTimestamp() {
         String pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSS'+05:30'";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-        return simpleDateFormat.format(new Date());
+        Date date = Date.from(Instant.now().minus(Duration.ofDays(1)));
+        return simpleDateFormat.format(date);
     }
 
     public static Properties createProperties(final String HOSTS) {
