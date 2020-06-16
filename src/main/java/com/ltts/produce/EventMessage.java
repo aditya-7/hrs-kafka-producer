@@ -3,7 +3,7 @@ package com.ltts.produce;
 import org.json.simple.JSONObject;
 
 public class EventMessage {
-	public static JSONObject createEventMessage(String server, int id, String timestamp) {
+	public static JSONObject createEventMessage(String server, int id, String timestamp, String eventId) {
 		JSONObject message = new JSONObject();
 		// Combination of Server Name and EventID
 		message.put("gDAServerEventID", id + "#" + server);

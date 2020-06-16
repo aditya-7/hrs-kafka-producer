@@ -16,10 +16,11 @@ public class ProduceMessages {
 
     //    private static final String HOSTS = System.getenv("KAFKA_BROKER_LIST");
     private static final String HOSTS = "52.172.24.230:9092,13.71.124.119:9092,52.140.16.51:9092";
-    //    private static final String EVENT_TOPIC = System.getenv("EVENT_TOPIC");
+    //    private static final String HOSTS = "104.211.227.158:9092,13.71.89.34:9092,104.211.206.227:9092";
+//        private static final String EVENT_TOPIC = System.getenv("EVENT_TOPIC");
     private static final String EVENT_TOPIC = "hrs-ebi-event";
     //    private static final String ALARM_TOPIC = System.getenv("ALARM_TOPIC");
-    private static final String ALARM_TOPIC = "hrs-ebi-alarm";
+//    private static final String ALARM_TOPIC = "hrs-ebi-alarm";
 
     // FROM Date
     private static final int FROM_YEAR = 2017;
@@ -45,9 +46,13 @@ public class ProduceMessages {
     private static int MIN_NO_OF_EVENTS_OR_ALARMS = 100;
 
     // List of servers
-    private static final String[] SERVERS = {"INMUMCDCEBI11A", "CDCTPEBIRAPPPA", "INMUMCDCEBI10", "INPUNSPEBI09A",
-            "CHNSIREBI13A", "INTVMPPEBI06A", "INBLRPIOEBI03A", "CDCTPEBIRAPPPA", "INHYDSPEBI07A", "INCHNSIREBI05",
-            "IE22P2R500TCS1A"};
+    private static final String[] SERVERS = {
+            "INMUMCDCEBI11A",
+            "IE22P2R500TCS1A",
+            "INMUMCDCEBI10",
+            "INHYDSPEBI07A",
+            "INBLRPIOEBI03A"
+    };
 
     public static Date addSeconds(Calendar calendar, Date fromDate, Integer secondsToAdd) {
         calendar.setTime(fromDate);
@@ -113,14 +118,19 @@ public class ProduceMessages {
         while (true) {
             Date newDate = addSeconds(calendar, fromDate, seconds++);
             int iterations = getRandomNumber(false);
+            Random rand = new Random();
             for (int i = 0; i < iterations; i++) {
                 for (int j = 0; j < SERVERS.length; j++) {
                     // Alarm
-                    producer.send(new ProducerRecord<String, String>(ALARM_TOPIC,
-                            AlarmMessage.createAlarmsMessage(SERVERS[j], getRandomNumber(false), timestamp).toString()));
+//                    producer.send(new ProducerRecord<String, String>(ALARM_TOPIC,
+//                            AlarmMessage.createAlarmsMessage(SERVERS[j], getRandomNumber(false), timestamp).toString()));
                     // Event
                     producer.send(new ProducerRecord<String, String>(EVENT_TOPIC,
-                            EventMessage.createEventMessage(SERVERS[j], getRandomNumber(false), timestamp).toString()));
+                            EventMessage.createEventMessage(
+                                    SERVERS[j],
+                                    getRandomNumber(false),
+                                    timestamp,
+                                    System.currentTimeMillis() + "" + rand.nextLong()).toString()));
                 }
             }
             if (toDate.compareTo(newDate) == 0) {
