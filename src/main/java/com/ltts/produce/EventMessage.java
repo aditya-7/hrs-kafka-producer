@@ -6,6 +6,7 @@ public class EventMessage {
 	public static JSONObject createEventMessage(String server, int id, String timestamp, String eventId) {
 		JSONObject message = new JSONObject();
 		// Combination of Server Name and EventID
+		System.out.println(eventId + "#" + server);
 		message.put("gDAServerEventID", id + "#" + server);
 		// From defined SERVERS variable
 		message.put("dsaServerName", server);

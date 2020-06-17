@@ -14,12 +14,13 @@ import java.util.Random;
 
 public class ProduceMessages {
 
-    //    private static final String HOSTS = System.getenv("KAFKA_BROKER_LIST");
-    private static final String HOSTS = "52.172.24.230:9092,13.71.124.119:9092,52.140.16.51:9092";
-    //    private static final String HOSTS = "104.211.227.158:9092,13.71.89.34:9092,104.211.206.227:9092";
-//        private static final String EVENT_TOPIC = System.getenv("EVENT_TOPIC");
-    private static final String EVENT_TOPIC = "hrs-ebi-event";
-    //    private static final String ALARM_TOPIC = System.getenv("ALARM_TOPIC");
+    private static final String HOSTS = System.getenv("KAFKA_BROKER_LIST");
+//    private static final String HOSTS = "52.172.24.230:9092,13.71.124.119:9092,52.140.16.51:9092";
+//    private static final String HOSTS = "104.211.227.158:9092,13.71.89.34:9092,104.211.206.227:9092";
+    private static final String EVENT_TOPIC = System.getenv("EVENT_TOPIC");
+//    private static final String EVENT_TOPIC = "hrs-ebi-event";
+//    private static final String EVENT_TOPIC = "test";
+//    private static final String ALARM_TOPIC = System.getenv("ALARM_TOPIC");
 //    private static final String ALARM_TOPIC = "hrs-ebi-alarm";
 
     // FROM Date
